@@ -35,10 +35,10 @@ def execute_query(sql: str) -> dict:
 def log_query(session_id: str, user_question: str, generated_sql: str,
               explanation: str, assumptions: list, rows_returned: int,
               execution_time_ms: int, sql_valid: bool, error_message: str = None,
-              metadata: dict = None):
+              metadata: dict = None) -> int:
     """
     Log every query to the query_logs table.
-    Includes full LLM request/response metadata.
+    Returns the inserted row ID for linking feedback later.
     Fails silently — logging should never break the main flow.
     """
     try:
@@ -54,9 +54,8 @@ def log_query(session_id: str, user_question: str, generated_sql: str,
             "error_message": error_message,
         }
 
-        # Add LLM metadata if available
         if metadata:
-            row["system_prompt"] = metadata.get("system_prompt")
+            row["system_prompt"] = None  # too large per-query, stored separately in prompt_versions
             row["request_messages"] = json.dumps(metadata.get("request_messages", []))
             row["raw_llm_response"] = metadata.get("raw_response")
             row["model"] = metadata.get("model")
@@ -66,6 +65,26 @@ def log_query(session_id: str, user_question: str, generated_sql: str,
             row["llm_latency_ms"] = metadata.get("llm_latency_ms", 0)
             row["stop_reason"] = metadata.get("stop_reason")
 
-        supabase.table("query_logs").insert(row).execute()
+        result = supabase.table("query_logs").insert(row).execute()
+        # Return the ID of the inserted row
+        if result.data and len(result.data) > 0:
+            return result.data[0].get("id")
+        return None
     except Exception as e:
         print(f"Warning: Logging failed: {e}")
+        return None
+
+
+def update_feedback(log_id: int, feedback: str):
+    """
+    Update the user_feedback column for a specific query log row.
+    feedback: "up" or "down"
+    """
+    if not log_id:
+        return
+    try:
+        supabase.table("query_logs").update(
+            {"user_feedback": feedback}
+        ).eq("id", log_id).execute()
+    except Exception as e:
+        print(f"Warning: Feedback update failed: {e}")

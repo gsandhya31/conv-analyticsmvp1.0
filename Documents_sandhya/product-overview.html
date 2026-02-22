@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversational Analytics — Product Overview</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface-2: #232733;
+      --border: #2e3345;
+      --text: #e4e6ef;
+      --text-muted: #8b8fa3;
+      --accent: #f97316;
+      --accent-dim: rgba(249, 115, 22, 0.12);
+      --blue: #3b82f6;
+      --blue-dim: rgba(59, 130, 246, 0.12);
+      --green: #22c55e;
+      --green-dim: rgba(34, 197, 94, 0.12);
+      --red: #ef4444;
+      --red-dim: rgba(239, 68, 68, 0.12);
+      --purple: #a855f7;
+      --purple-dim: rgba(168, 85, 247, 0.12);
+      --yellow: #eab308;
+      --yellow-dim: rgba(234, 179, 8, 0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      padding: 40px 24px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 48px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    /* Problem Statement */
+    .problem-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--red);
+      border-radius: 10px;
+      padding: 28px;
+    }
+
+    .problem-box p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+    }
+
+    .problem-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .gap-visual {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0;
+      flex-wrap: wrap;
+    }
+
+    .actor-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 20px;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .actor-box .label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+
+    .actor-box .name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .gap-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .gap-arrow .line {
+      font-family: 'DM Mono', monospace;
+      color: var(--red);
+      font-size: 1.4rem;
+      letter-spacing: -2px;
+    }
+
+    .gap-arrow .gap-label {
+      font-size: 0.7rem;
+      color: var(--red);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .solution-arrow {
+      color: var(--green);
+    }
+
+    .solution-arrow .line {
+      color: var(--green);
+    }
+
+    .solution-arrow .gap-label {
+      color: var(--green);
+    }
+
+    /* Flow */
+    .flow-container {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .flow-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      min-width: 160px;
+      flex: 1;
+      position: relative;
+    }
+
+    .flow-step .step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .flow-step .step-title {
+      font-weight: 600;
+      font-size: 0.88rem;
+      margin-bottom: 6px;
+    }
+
+    .flow-step .step-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 36px;
+      color: var(--accent);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* Scope grid */
+    .scope-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 700px) {
+      .scope-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-container {
+        flex-wrap: wrap;
+      }
+
+      .flow-arrow {
+        transform: rotate(90deg);
+      }
+    }
+
+    .scope-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .scope-card .card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .scope-card .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .scope-card .card-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .scope-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .scope-card li {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .scope-card li::before {
+      content: '›';
+      position: absolute;
+      left: 2px;
+      color: var(--text-muted);
+    }
+
+    /* Metrics */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .metrics-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .metric-card .metric-icon {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .metric-card .metric-name {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .metric-card .metric-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      opacity: 0.7;
+    }
+
+    /* Guardrails */
+    .guardrails-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .guardrail {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .guardrail .status {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .status-done {
+      background: var(--green-dim);
+      color: var(--green);
+    }
+
+    .status-todo {
+      background: var(--yellow-dim);
+      color: var(--yellow);
+    }
+
+    .guardrail .g-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .guardrail .g-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Assumptions */
+    .assumptions-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+    }
+
+    .assumptions-list li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+      list-style: none;
+    }
+
+    .assumptions-list li::before {
+      content: '⚠';
+      position: absolute;
+      left: 0;
+      font-size: 0.75rem;
+    }
+
+    /* Color helpers */
+    .c-red {
+      color: var(--red);
+    }
+
+    .c-blue {
+      color: var(--blue);
+    }
+
+    .c-green {
+      color: var(--green);
+    }
+
+    .c-purple {
+      color: var(--purple);
+    }
+
+    .c-accent {
+      color: var(--accent);
+    }
+
+    .bg-red {
+      background: var(--red-dim);
+    }
+
+    .bg-blue {
+      background: var(--blue-dim);
+    }
+
+    .bg-green {
+      background: var(--green-dim);
+    }
+
+    .bg-purple {
+      background: var(--purple-dim);
+    }
+
+    .bg-accent {
+      background: var(--accent-dim);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Title -->
+    <h1>⛽ Conversational Analytics <span>— Product Overview</span></h1>
+    <p class="subtitle">Natural Language → SQL engine for fuel station operations teams</p>
+
+    <!-- 1. PROBLEM STATEMENT -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num bg-red c-red">01</div>
+        <div class="section-title">Problem Statement</div>
+      </div>
+      <div class="problem-box">
+        <p>Operations and business users depend on data engineers for every data pull — even simple questions like "top
+          5 stations by revenue this month" require a ticket, wait time, and context-switching.</p>
+
+        <div class="gap-visual">
+          <div class="actor-box">
+            <div class="label">Has the question</div>
+            <div class="name">Business / Ops User</div>
+          </div>
+          <div class="gap-arrow">
+            <div class="line">- - - ✕ - - -</div>
+            <div class="gap-label">Dependency Gap</div>
+          </div>
+          <div class="actor-box">
+            <div class="label">Has the access</div>
+            <div class="name">Data Engineer</div>
+          </div>
+          <div class="gap-arrow solution-arrow">
+            <div class="line">━━━ ✓ ━━━</div>
+            <div class="gap-label">Bridge: NL→SQL</div>
+          </div>
+          <div class="actor-box">
+            <div class="label">Self-serve</div>
+            <div class="name" style="color: var(--green);">Direct Data Access</div>
+          </div>
+        </div>
+
+        <p><strong style="color:var(--text);">Time to insight:</strong> Hours/days (ticket → engineer → query → format →
+          share) → <strong style="color:var(--green);">Seconds</strong> (type question → get answer)</p>
+      </div>
+    </div>
+
+    <!-- 2. PRODUCT THINKING -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num bg-blue c-blue">02</div>
+        <div class="section-title">Product Thinking</div>
+      </div>
+
+      <div class="scope-grid">
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--blue);"></div>
+            <div class="card-title">Why NL→SQL over a Dashboard?</div>
+          </div>
+          <ul>
+            <li>Dashboards answer pre-defined questions</li>
+            <li>NL→SQL answers ad-hoc questions nobody anticipated</li>
+            <li>No dependency on dashboard redesign cycles</li>
+            <li>Reduces "one more chart" requests to engineering</li>
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--accent);"></div>
+            <div class="card-title">Constraints Defined</div>
+          </div>
+          <ul>
+            <li>Read-only: system can never modify data</li>
+            <li>PostgreSQL (Supabase) as data layer</li>
+            <li>Claude Sonnet4 for SQL generation</li>
+            <li>HQ ops team persona — no role-based access needed</li>
+
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--green);"></div>
+            <div class="card-title">User Persona</div>
+          </div>
+          <ul>
+            <li>HQ operations managers & analysts</li>
+            <li>Non-technical: can't write SQL</li>
+            <li>Need quick answers for daily decisions</li>
+            <li>Currently depend on data engineering team</li>
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--purple);"></div>
+            <div class="card-title">Scope Boundaries</div>
+          </div>
+          <ul>
+            <li>✅ Data retrieval & aggregation</li>
+            <li>✅ Multi-turn follow-up questions</li>
+            <li>✅ Query logging & analytics</li>
+            <li>❌ Forecasting / predictions</li>
+            <li>❌ Data modification</li>
+            <li>❌ User authentication</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. ARCHITECTURE FLOW -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num bg-accent c-accent">03</div>
+        <div class="section-title">Implementation Flow</div>
+      </div>
+
+      <div class="flow-container">
+        <div class="flow-step">
+          <div class="step-num">01</div>
+          <div class="step-title">User Query</div>
+          <div class="step-desc">Plain English question typed in chat interface</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-num">02</div>
+          <div class="step-title">LLM Prompt</div>
+          <div class="step-desc">Schema + rules + few-shot examples + conversation context sent to Claude</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-num">03</div>
+          <div class="step-title">SQL Generation</div>
+          <div class="step-desc">Claude Sonnet 4 returns JSON: query + explanation + assumptions (max_tokens: 1024)
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-num">04</div>
+          <div class="step-title">Execute</div>
+          <div class="step-desc">SQL runs on Supabase via RPC function (SELECT only)</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-num">05</div>
+          <div class="step-title">Display + Log</div>
+          <div class="step-desc">Answer + collapsible SQL + data table. Full metadata logged.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03b. DETAILED FILE FLOW -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num bg-accent c-accent">03b</div>
+        <div class="section-title">Code Flow — Per Query</div>
+      </div>
+      <div class="problem-box"
+        style="border-left-color: var(--accent); font-family: 'DM Mono', monospace; font-size: 0.82rem; line-height: 2;">
+        <span style="color:var(--blue);">app.py</span> receives user input<br>
+        &nbsp;&nbsp;→ calls <span style="color:var(--green);">sql_generator</span>.generate_sql()<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;→ <span style="color:var(--purple);">prompts</span>.build_prompt() constructs system
+        prompt + messages array<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;→ Anthropic API call → Claude Sonnet 4 (max_tokens: 1024)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;→ returns JSON: {sql, explanation, assumptions} + token metadata<br>
+        &nbsp;&nbsp;→ calls <span style="color:var(--accent);">db</span>.execute_query() → Supabase RPC (SELECT/WITH
+        only)<br>
+        &nbsp;&nbsp;→ renders: explanation + assumptions + SQL + data table + token cost<br>
+        &nbsp;&nbsp;→ calls <span style="color:var(--accent);">db</span>.log_query() → writes full metadata to
+        query_logs table
+      </div>
+    </div>
+
+    <!-- 4. WHAT WE BUILT -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num bg-green c-green">04</div>
+        <div class="section-title">Scope — What's Implemented</div>
+      </div>
+
+      <div class="scope-grid">
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--green);"></div>
+            <div class="card-title">Core Engine</div>
+          </div>
+          <ul>
+            <li>NL→SQL via Claude Sonnet 4 API</li>
+            <li>Schema-aware prompt with business context</li>
+            <li>Few-shot examples for accuracy</li>
+            <li>CTE / window function support</li>
+            <li>Footfall & safety deduplication rules</li>
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--green);"></div>
+            <div class="card-title">Frontend</div>
+          </div>
+          <ul>
+            <li>Streamlit chat interface</li>
+            <li>Collapsible SQL view</li>
+            <li>Data table display</li>
+            <li>Assumptions shown per query</li>
+            <li>Sidebar with sample questions</li>
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--green);"></div>
+            <div class="card-title">Multi-Turn Context</div>
+          </div>
+          <ul>
+            <li>Last 5 Q&A pairs in context window</li>
+            <li>Follow-ups: "same for East", "break it down"</li>
+            <li>New Conversation to reset context</li>
+            <li>Session-scoped (no persistent storage)</li>
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--green);"></div>
+            <div class="card-title">Observability</div>
+          </div>
+          <ul>
+            <li>Full request/response logging to Supabase</li>
+            <li>Token usage tracking per query</li>
+            <li>LLM latency + total execution time</li>
+            <li>Session-based grouping</li>
+            <li>Error & failure capture</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. METRICS OF SUCCESS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num bg-purple c-purple">05</div>
+        <div class="section-title">Metrics of Success</div>
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-icon">📊</div>
+          <div class="metric-name">Adoption Rate</div>
+          <div class="metric-desc">How many business users actively use the platform for analysis</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🔄</div>
+          <div class="metric-name">Bypass Rate</div>
+          <div class="metric-desc">How many still go to data engineers despite having the tool</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🔁</div>
+          <div class="metric-name">Retry Rate</div>
+          <div class="metric-desc">How many times users repeat/rephrase to get expected results</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">👍</div>
+          <div class="metric-name">Satisfaction Score</div>
+          <div class="metric-desc">Thumbs up / down on query outputs — direct quality signal</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. GUARDRAILS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num bg-red c-red">06</div>
+        <div class="section-title">Guardrails & Safety</div>
+      </div>
+
+      <div class="guardrails-grid">
+        <div class="guardrail">
+          <div class="status status-done">Implemented</div>
+          <div class="g-title">Read-Only Enforcement</div>
+          <div class="g-desc">Only SELECT / WITH queries allowed. Validated at both application layer and database
+            function level.</div>
+        </div>
+        <div class="guardrail">
+          <div class="status status-done">Implemented</div>
+          <div class="g-title">No Forecasting / Extrapolation</div>
+          <div class="g-desc">LLM is instructed to refuse prediction queries. The system retrieves data, it doesn't
+            generate projections.</div>
+        </div>
+        <div class="guardrail">
+          <div class="status status-done">Implemented</div>
+          <div class="g-title">Full Audit Trail</div>
+          <div class="g-desc">Every query logged: user question, generated SQL, tokens used, latency, success/failure,
+            full LLM request & response.</div>
+        </div>
+        <div class="guardrail">
+          <div class="status status-done">Implemented</div>
+          <div class="g-title">Schema Isolation</div>
+          <div class="g-desc">Company data stays in Supabase. Only the schema structure (not actual data) is sent to the
+            LLM for SQL generation.</div>
+        </div>
+        <div class="guardrail">
+          <div class="status status-todo">To Implement</div>
+          <div class="g-title">PII / Sensitive Data Redaction</div>
+          <div class="g-desc">Redact company-sensitive information from user queries before they hit the LLM. Scrub
+            names, IDs, proprietary terms.</div>
+        </div>
+        <div class="guardrail">
+          <div class="status status-todo">To Implement</div>
+          <div class="g-title">Query Cost Limits</div>
+          <div class="g-desc">Cap expensive queries (full table scans, massive joins) to prevent runaway costs on
+            production-scale data.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. ASSUMPTIONS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num" style="background:var(--yellow-dim); color:var(--yellow);">07</div>
+        <div class="section-title">Key Assumptions</div>
+      </div>
+
+      <ul class="assumptions-list">
+        <li>Users are HQ ops team with no SQL knowledge — they ask in plain English</li>
+        <li>All users see all data — no row-level security or role-based access required</li>
+        <li>2-table schema is sufficient to demonstrate the pattern; production would have 10-50+ tables</li>
+        <li>Synthetic data (30 stations, 6 months) is structurally representative of real fuel retail operations</li>
+        <li>Claude Sonnet 4 (claude-sonnet-4-20250514) via Anthropic API is accurate enough for SQL generation on
+          well-defined schemas with few-shot prompting</li>
+        <li>Multi-turn context (last 5 turns) is sufficient for follow-up questions without full conversation replay
+        </li>
+        <li>Cold start latency on free Render tier (~2mins) is acceptable for a demo / interview prototype</li>
+        <li>Date references ("last month", "this quarter") are anchored to the data range, not real-world calendar</li>
+      </ul>
+    </div>
+
+  </div>
+</body>
+
+</html>
