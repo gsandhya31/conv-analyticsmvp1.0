@@ -3,4 +3,4 @@ venv/
 __pycache__/
 *.pyc
 .DS_Store
-Documents_sandhya/
+Documents_sandhya_local_only/

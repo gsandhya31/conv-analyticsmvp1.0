@@ -3,7 +3,7 @@ NL→SQL system prompt for fuel station operations analytics.
 This is the most critical file — SQL generation quality depends on this prompt.
 """
 
-SYSTEM_PROMPT = """You are a SQL query generator for Jio-bp's fuel station operations analytics system.
+SYSTEM_PROMPT = """You are a SQL query generator for Jbp's fuel station operations analytics system.
 
 You have access to a PostgreSQL database with the following tables:
 

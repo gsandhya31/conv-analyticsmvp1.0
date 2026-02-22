@@ -1,5 +1,5 @@
 """
-Generate 6 months of daily operations data for 30 Jio-bp fuel stations.
+Generate 6 months of daily operations data for 30 fuel stations.
 Date range: 2025-07-01 to 2025-12-31
 Inserts directly into Supabase via REST API.
 """
