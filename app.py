@@ -71,6 +71,7 @@ st.sidebar.markdown(
     "📦 Data: Supabase (PostgreSQL)<br>"
     "🖥️ Frontend: Streamlit<br><br>"
     "Built by <a href='https://www.linkedin.com/in/sandhya-godavarthy-5072622b/' target='_blank'>Sandhya</a>"
+    "<br><a href='https://htmlpreview.github.io/?https://github.com/gsandhya31/conv-analyticsmvp1.0/blob/main/product-overview.html' target='_blank'>📄 Product Overview</a>"
     "</div>",
     unsafe_allow_html=True,
 )
