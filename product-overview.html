@@ -552,7 +552,96 @@
         </div>
       </div>
     </div>
+    <!-- 02b. PROTOTYPING DECISIONS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num bg-blue c-blue">02b</div>
+        <div class="section-title">AI Prototyping Decisions — Why This Stack</div>
+      </div>
 
+      <div class="scope-grid">
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--blue);"></div>
+            <div class="card-title">Why Python (not Node/Go)</div>
+          </div>
+          <ul>
+            <li>First-class Anthropic SDK support — <code>anthropic</code> pip package</li>
+            <li>Supabase Python client for DB operations</li>
+            <li>Data manipulation with Pandas built in</li>
+            <li>Fastest path from idea → working backend for a solo builder</li>
+            <li>Industry standard for AI/ML prototyping</li>
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--green);"></div>
+            <div class="card-title">Why Streamlit (not Lovable/Cursor)</div>
+          </div>
+          <ul>
+            <li>Single Python file → full chat UI. No HTML/CSS/JS needed</li>
+            <li>Built-in: <code>st.chat_input</code>, <code>st.dataframe</code>, <code>st.expander</code> — all we need
+            </li>
+            <li>Lovable/Cursor generate React code — adds a separate frontend to maintain</li>
+            <li>Streamlit keeps backend logic + UI in one codebase, one deploy</li>
+            <li>Tradeoff accepted: limited styling control. Fine for an internal ops tool.</li>
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--accent);"></div>
+            <div class="card-title">Why Supabase (not raw PostgreSQL)</div>
+          </div>
+          <ul>
+            <li>Managed PostgreSQL — no server setup, no DevOps</li>
+            <li>Built-in REST API + RPC functions for raw SQL execution</li>
+            <li>Table editor for quick data inspection during development</li>
+            <li>Free tier sufficient for prototype scale (10K rows, low QPS)</li>
+            <li>Tradeoff: RPC function needed for raw SQL — Supabase client doesn't support it natively</li>
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--purple);"></div>
+            <div class="card-title">Why Render (not Vercel/AWS)</div>
+          </div>
+          <ul>
+            <li>Vercel doesn't support Python server apps (Streamlit needs a persistent process)</li>
+            <li>AWS/GCP: overkill setup time for a demo</li>
+            <li>Render: connect GitHub repo → set env vars → deploy. Under 5 minutes.</li>
+            <li>Free tier with auto-deploy on git push</li>
+            <li>Tradeoff accepted: cold start ~2mins after inactivity. Pre-warm before demo.</li>
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--red);"></div>
+            <div class="card-title">Why Claude Sonnet 4 (not GPT-4/Gemini)</div>
+          </div>
+          <ul>
+            <li>Strong SQL generation accuracy with schema-aware prompting</li>
+            <li>Structured JSON output reliability — fewer parsing failures</li>
+            <li>Competitive pricing: $3/1M input, $15/1M output tokens</li>
+            <li>Clean API — system prompt + messages pattern fits NL→SQL well</li>
+            <li>Builder familiarity — faster iteration when you know the tool</li>
+          </ul>
+        </div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--yellow);"></div>
+            <div class="card-title">What I'd Change for Production</div>
+          </div>
+          <ul>
+            <li>Frontend: React + FastAPI — full control over UI/UX</li>
+            <li>Hosting: AWS ECS ,Azure App Service or GCP Cloud Run — no cold starts, auto-scaling</li>
+            <li>DB: Direct PostgreSQL connection pool — skip RPC overhead</li>
+            <li>Caching: Redis for repeated queries — reduce LLM calls + latency</li>
+            <li>Semantic layer: between LLM and raw tables</li>
+            <li>Observability: LangSmith or Langfuse for LLM tracing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <!-- 3. ARCHITECTURE FLOW -->
     <div class="section">
       <div class="section-header">
@@ -678,33 +767,43 @@
       </div>
     </div>
 
-    <!-- 5. METRICS OF SUCCESS -->
+    <!-- 05. METRICS WITH TARGETS -->
     <div class="section">
       <div class="section-header">
-        <div class="section-num bg-purple c-purple">05</div>
-        <div class="section-title">Metrics of Success</div>
+        <div class="section-num bg-purple c-purple">05b</div>
+        <div class="section-title">Metrics Framework — Business & Product</div>
       </div>
 
-      <div class="metrics-row">
-        <div class="metric-card">
-          <div class="metric-icon">📊</div>
-          <div class="metric-name">Adoption Rate</div>
-          <div class="metric-desc">How many business users actively use the platform for analysis</div>
+      <div class="scope-grid">
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--blue);"></div>
+            <div class="card-title">Business Metrics(targets)</div>
+          </div>
+          <ul>
+            <li><strong>Adoption rate:</strong> 60%+ of ops team active weekly within 3 months of launch</li>
+            <li><strong>DE bypass rate:</strong> 40% reduction in ad-hoc data requests to engineering within 2 months
+            </li>
+            <li><strong>Time to insight:</strong> from hours/days (ticket → engineer) to under 10 seconds (self-serve)
+            </li>
+            <li><strong>Query satisfaction:</strong> 80%+ thumbs up rate on query outputs</li>
+            <li><strong>Repeat usage:</strong> active users averaging 5+ queries per week</li>
+          </ul>
         </div>
-        <div class="metric-card">
-          <div class="metric-icon">🔄</div>
-          <div class="metric-name">Bypass Rate</div>
-          <div class="metric-desc">How many still go to data engineers despite having the tool</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-icon">🔁</div>
-          <div class="metric-name">Retry Rate</div>
-          <div class="metric-desc">How many times users repeat/rephrase to get expected results</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-icon">👍</div>
-          <div class="metric-name">Satisfaction Score</div>
-          <div class="metric-desc">Thumbs up / down on query outputs — direct quality signal</div>
+        <div class="scope-card">
+          <div class="card-header">
+            <div class="dot" style="background:var(--green);"></div>
+            <div class="card-title">Product Metrics(targets)</div>
+          </div>
+          <ul>
+            <li><strong>E2E latency:</strong> &lt;3 sec for simple queries, &lt;6 sec for complex (CTE/window)</li>
+            <li><strong>SQL accuracy:</strong> 90%+ valid SQL on first attempt (no execution errors)</li>
+            <li><strong>Retry rate:</strong> &lt;15% of queries need rephrasing to get expected results</li>
+            <li><strong>Cost per query:</strong> &lt;₹0.80 average (currently ~₹0.50)</li>
+            <li><strong>Uptime:</strong> 99.5%+ availability during business hours (9am–7pm IST)</li>
+            <li><strong>Graceful failure:</strong> 100% of unanswerable questions get a clear explanation, not an error
+            </li>
+          </ul>
         </div>
       </div>
     </div>
